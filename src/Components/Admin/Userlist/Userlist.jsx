@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import "./UserList.css";
+import "./Userlist.css";
 
 const UserList = () => {
 
