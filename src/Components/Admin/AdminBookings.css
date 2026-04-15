@@ -1,0 +1,85 @@
+.admin-booking{
+  padding:40px;
+  background:#f4f6f9;
+  min-height:100vh;
+  font-family:Arial, Helvetica, sans-serif;
+}
+
+/* Title */
+
+.admin-booking h2{
+  margin-bottom:25px;
+  font-size:28px;
+  font-weight:600;
+}
+
+/* Table Container */
+
+.admin-booking table{
+  width:100%;
+  border-collapse:collapse;
+  background:white;
+  border-radius:8px;
+  overflow:hidden;
+  box-shadow:0 5px 20px rgba(0,0,0,0.08);
+}
+
+/* Table Head */
+
+.admin-booking thead{
+  background:#111;
+  color:white;
+}
+
+.admin-booking th{
+  padding:15px;
+  text-align:left;
+  font-size:15px;
+}
+
+/* Table Body */
+
+.admin-booking td{
+  padding:14px;
+  border-bottom:1px solid #eee;
+  font-size:14px;
+}
+
+/* Hover Effect */
+
+.admin-booking tbody tr:hover{
+  background:#f9f9f9;
+  transition:0.2s;
+}
+
+/* Delete Button */
+
+.admin-booking button{
+  background:#ff3d3d;
+  color:white;
+  border:none;
+  padding:7px 14px;
+  border-radius:5px;
+  cursor:pointer;
+  font-size:13px;
+  transition:0.3s;
+}
+
+.admin-booking button:hover{
+  background:#d62828;
+}
+
+/* Responsive */
+
+@media (max-width:768px){
+
+  .admin-booking table{
+    font-size:12px;
+  }
+
+  .admin-booking th,
+  .admin-booking td{
+    padding:10px;
+  }
+
+}

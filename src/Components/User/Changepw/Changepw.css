@@ -1,0 +1,76 @@
+.change-pass-wrapper {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-top: 40px;
+  margin-bottom: 100px;
+}
+
+.change-pass-box {
+  width: 420px;
+  background: #fff;
+  padding: 40px 30px;
+  border-radius: 8px;
+  box-shadow: 0px 0px 18px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+/* Icon */
+.icon-box {
+  width: 60px;
+  height: 60px;
+  background: #8a2be2;
+  margin: 0 auto;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.icon-box i {
+  color: white;
+  font-size: 24px;
+}
+
+/* Title */
+.title {
+  margin-top: 15px;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+/* Input Fields */
+label {
+  display: block;
+  text-align: left;
+  margin-top: 22px;
+  font-size: 15px;
+  font-weight: 500;
+}
+
+.input-box {
+  width: 100%;
+  padding: 12px 14px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  margin-top: 8px;
+  font-size: 15px;
+}
+
+/* Button */
+.change-btn {
+  width: 100%;
+  padding: 12px;
+  background: #1f57ff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  margin-top: 25px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.change-btn:hover {
+  background: #1246e0;
+}

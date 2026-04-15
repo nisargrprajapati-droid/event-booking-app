@@ -1,0 +1,203 @@
+.payment-container {
+  display: flex;
+  gap: 40px;
+  padding: 40px;
+  background: #f5f6fa;
+  min-height: 100vh;
+  justify-content: center;
+  align-items: flex-start;
+  font-family: "Segoe UI", sans-serif;
+}
+
+/* LEFT SIDE */
+
+.ticket-section {
+  width: 35%;
+}
+
+.ticket-section h2 {
+  margin-bottom: 20px;
+}
+
+.ticket-card {
+  background: white;
+  padding: 25px;
+  border-radius: 12px;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+}
+
+.ticket-card h3 {
+  margin-bottom: 10px;
+}
+
+.ticket-card p {
+  margin: 6px 0;
+  color: #555;
+}
+
+
+/* RIGHT SIDE */
+
+.payment-section {
+  width: 45%;
+  background: white;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+}
+
+.payment-section h2 {
+  margin-bottom: 20px;
+}
+
+
+/* PAYMENT TABS */
+
+.payment-tabs {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 25px;
+}
+
+.payment-tabs button {
+  flex: 1;
+  padding: 12px;
+  border: none;
+  border-radius: 8px;
+  background: #eee;
+  cursor: pointer;
+  font-weight: 600;
+  transition: 0.2s;
+}
+
+.payment-tabs button:hover {
+  background: #ddd;
+}
+
+.payment-tabs button.active {
+  background: #4f46e5;
+  color: white;
+}
+
+
+/* UPI SECTION */
+
+.upi-section {
+  text-align: center;
+}
+
+.upi-qr {
+  margin: 15px 0;
+  border-radius: 10px;
+}
+
+.upi-apps {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.upi-apps button {
+  padding: 10px 14px;
+  border: none;
+  border-radius: 6px;
+  background: #f1f1f1;
+  cursor: pointer;
+}
+
+.upi-apps button:hover {
+  background: #e2e2e2;
+}
+
+
+/* CARD SECTION */
+
+.card-section {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.card-section input {
+  padding: 12px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}
+
+
+/* NETBANKING */
+
+.netbanking-section {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.netbanking-section select {
+  padding: 12px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}
+
+
+/* PAY BUTTON */
+
+.pay-btn {
+  margin-top: 10px;
+  padding: 14px;
+  border: none;
+  border-radius: 8px;
+  background: #22c55e;
+  color: white;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.pay-btn:hover {
+  background: #16a34a;
+}
+
+
+/* ERROR */
+
+.error {
+  color: red;
+  font-size: 14px;
+}
+
+.confirm-payment{
+  margin-top:20px;
+  text-align:center;
+}
+
+.confirm-btn{
+  background:#ff4d4d;
+  color:white;
+  padding:12px 25px;
+  border:none;
+  border-radius:6px;
+  font-size:16px;
+  cursor:pointer;
+}
+
+.confirm-btn:hover{
+  background:#e63c3c;
+}
+/* RESPONSIVE */
+
+@media (max-width: 900px) {
+
+  .payment-container {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .ticket-section,
+  .payment-section {
+    width: 90%;
+  }
+
+}

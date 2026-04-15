@@ -1,0 +1,113 @@
+/* ================= HERO ================= */
+
+.about-hero {
+    /* padding-top: 50px; */
+  background-image: url("https://wallpapers.com/images/hd/beautiful-landscape-ice-mountain-and-forest-bqujzv0m1zaqkpmj.jpg");
+  background-size: cover;
+  background-position: center;
+  height: 600px;
+  text-align: center;
+  padding-top: 200px;
+  color: white;
+}
+
+.about-title {
+  color: #6a5acd;
+}
+
+.about-link {
+  color: white;
+  text-decoration: none;
+  margin: 0 6px;
+}
+
+/* ================= WRAPPER ================= */
+
+.about-wrapper {
+  background-color: black;
+  padding: 70px 0;
+}
+
+/* ================= TOP SECTION ================= */
+
+.about-top {
+    /* padding-top: 20px; */
+  width: 1510px;
+  margin: 0 auto;
+  display: flex;
+  gap: 40px;
+}
+
+.about-left,
+.about-middle,
+.about-right {
+  width: 33%;
+  color: white;
+}
+
+.about-middle p,
+.about-right p {
+  color: #ccc;
+}
+
+/* ================= GRID ================= */
+
+.about-grid-wrapper {
+  display: flex;
+  justify-content: center;
+  margin-top: 70px;
+}
+
+.about-grid {
+  width: 1200px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 30px;
+}
+
+.about-card {
+  background-color: white;
+  padding: 30px;
+  border-radius: 12px;
+  text-align: center;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+}
+
+.about-card h3 {
+  margin-bottom: 10px;
+}
+
+.about-card p {
+  color: #333;
+  font-size: 14px;
+}
+
+/* ================= RESPONSIVE ================= */
+
+@media (max-width: 1024px) {
+  .about-top,
+  .about-grid {
+    width: 90%;
+  }
+
+  .about-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .about-top {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .about-left,
+  .about-middle,
+  .about-right {
+    width: 100%;
+  }
+
+  .about-grid {
+    grid-template-columns: 1fr;
+  }
+}

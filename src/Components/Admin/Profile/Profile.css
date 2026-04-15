@@ -1,0 +1,62 @@
+.profile-card {
+  background: white;
+  padding: 25px;
+  border-radius: 8px;
+  height: 500px;
+  width: 1100px;
+  margin-left: 280px;
+}
+
+.profile-avatar {
+  width: 90px;
+  height: 90px;
+  background: #9ca3af;
+  border-radius: 50%;
+  margin: 0 auto 20px;
+}
+
+.profile-tabs {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.profile-tabs button {
+  background: black;
+  color: white;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.profile-tabs .active {
+  background: #2563eb;
+}
+
+.profile-form {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+}
+
+.profile-form label {
+  font-size: 14px;
+}
+
+.profile-form input {
+  width: 100%;
+  padding: 8px;
+  margin-top: 5px;
+}
+
+.update-btn {
+  grid-column: span 2;
+  width: fit-content;
+  margin-left: auto;
+  padding: 8px 20px;
+  background: #2563eb;
+  color: white;
+  border: none;
+  border-radius: 5px;
+}

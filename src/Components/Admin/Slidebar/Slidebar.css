@@ -1,0 +1,86 @@
+/* ===== SIDEBAR ===== */
+
+.admin-sidebar {
+  width: 240px;
+  height: 100vh;
+  background: #111827;
+  color: white;
+  position: fixed;
+  left: 0;
+  top: 0;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+/* ===== LOGO ===== */
+
+.admin-logo {
+  font-size: 22px;
+  font-weight: bold;
+  padding: 22px;
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+  text-align: center;
+}
+
+/* ===== NAV MENU ===== */
+
+.admin-nav {
+  display: flex;
+  flex-direction: column;
+  padding: 15px;
+  gap: 6px;
+}
+
+/* ===== MENU LINK ===== */
+
+.admin-link {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+
+  text-decoration: none;
+  color: #d1d5db;
+
+  padding: 12px 14px;
+  border-radius: 6px;
+
+  transition: all 0.2s ease;
+  font-size: 15px;
+}
+
+/* Hover */
+
+.admin-link:hover {
+  background: #374151;
+  color: white;
+}
+
+/* Active NavLink */
+
+.admin-link.active {
+  background: #2563eb;
+  color: white;
+}
+
+/* ===== LOGOUT ===== */
+
+.admin-logout {
+  padding: 15px 20px;
+  border-top: 1px solid rgba(255,255,255,0.1);
+
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  cursor: pointer;
+  color: #f87171;
+  font-weight: 500;
+
+  transition: 0.2s;
+}
+
+.admin-logout:hover {
+  background: #1f2937;
+}

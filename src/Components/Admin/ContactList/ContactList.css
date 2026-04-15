@@ -1,0 +1,40 @@
+.contact-container {
+  width: 100%;
+  padding: 20px;
+  height: 400px;
+}
+
+.contact-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: white;
+}
+
+.contact-table thead {
+  background: black;
+  color: white;
+}
+
+.contact-table th,
+.contact-table td {
+  padding: 12px;
+  border-bottom: 1px solid #e0e0e0;
+  text-align: center;
+  font-size: 14px;
+}
+
+.contact-table tbody tr:hover {
+  background: #f7f7f7;
+}
+.delete-btn{
+background:red;
+color:white;
+border:none;
+padding:6px 12px;
+border-radius:6px;
+cursor:pointer;
+}
+
+.delete-btn:hover{
+background:#c40000;
+}

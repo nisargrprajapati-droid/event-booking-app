@@ -1,0 +1,104 @@
+.account-page {
+  background: #2f2a5a;
+  height: 700px;
+  width: 1500px;
+  display: flex;
+  justify-content: center;
+  padding-top: 40px;
+}
+
+.account-card {
+  width: 500px;
+  height: 500px;
+  margin-top: 50px;
+  background: #3b3570;
+  border-radius: 8px;
+  overflow: hidden;
+  color: white;
+}
+
+.account-header {
+  background: #342f63;
+  padding: 15px 20px;
+  font-weight: bold;
+}
+
+.account-nav {
+  display: flex;
+  justify-content: space-between;
+  padding: 15px 20px;
+  background: #3b3570;
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+
+.nav-left {
+  color: #4da3ff;
+  cursor: pointer;
+}
+
+.nav-right span {
+  color: #4da3ff;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.nav-right span:hover {
+  text-decoration: underline;
+}
+
+.profile-section {
+  display: flex;
+  justify-content: center;
+  padding: 25px 0;
+}
+
+.profile-section img {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: white;
+}
+
+.details-section {
+  padding: 0 20px 25px;
+}
+
+.details-title {
+  margin: 10px 0 15px;
+  font-size: 16px;
+  font-weight: 600;
+  color: #fff;
+}
+
+.detail-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 15px;
+  border-bottom: 1px solid rgba(255,255,255,0.2);
+  padding-bottom: 8px;
+}
+
+.detail-row input {
+  border: none;
+  outline: none;
+  background: transparent;
+  color: white;
+  flex: 1;
+  margin: 0 10px;
+}
+
+.detail-row input:disabled {
+  color: white;
+  cursor: default;
+}
+
+.edit-icon {
+  cursor: pointer;
+  transition: 0.3s;
+  color: white;
+}
+
+.edit-icon.active {
+  color: #00bfff;
+}
