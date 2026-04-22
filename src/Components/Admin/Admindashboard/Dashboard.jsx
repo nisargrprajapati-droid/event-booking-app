@@ -32,18 +32,33 @@ const Dashboard = () => {
   /* ================= FETCH ================= */
 
   const fetchStats = async () => {
-    const res = await axios.get("http://localhost:5000/api/admin/dashboard");
-    setStats(res.data);
+    try {
+      const res = await axios.get(`${import.meta.env.VITE_API_URL}/api/admin/dashboard`);
+      setStats(res.data);
+    } catch (err) {
+      console.error("Stats Error:", err);
+    }
   };
 
   const fetchAnalytics = async () => {
-    const res = await axios.get("http://localhost:5000/api/admin/analytics");
-    setMonthly(res.data.monthly);
+    try {
+      const res = await axios.get(`${import.meta.env.VITE_API_URL}/api/admin/analytics`);
+      setMonthly(res.data.monthly || {});
+    } catch (err) {
+      console.error("Analytics Error:", err);
+    }
   };
 
   const fetchRecentBookings = async () => {
-    const res = await axios.get("http://localhost:5000/api/admin/recent-bookings");
-    setRecentBookings(res.data);
+    try {
+      const res = await axios.get(`${import.meta.env.VITE_API_URL}/api/admin/recent-bookings`);
+
+      // ✅ Ensure it's always an array
+      setRecentBookings(res.data.bookings || []);
+    } catch (err) {
+      console.error("Recent Bookings Error:", err);
+      setRecentBookings([]);
+    }
   };
 
   /* ================= DATA ================= */
@@ -186,7 +201,7 @@ const Dashboard = () => {
 
           <tbody>
 
-            {recentBookings.map((b) => (
+            {Array.isArray(recentBookings) && recentBookings.map((b) => (
 
               <tr key={b._id}>
                 <td>{b.name}</td>

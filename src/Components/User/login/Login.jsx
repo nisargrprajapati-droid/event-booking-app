@@ -34,7 +34,7 @@ function Login({ setUser }) {
     try {
 
       const res = await axios.post(
-        "http://localhost:5000/api/user/login",
+        `${import.meta.env.VITE_API_URL}/api/user/login`,
         formData
       );
 

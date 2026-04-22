@@ -15,22 +15,23 @@ const Mybooking = () => {
 
   const [selectedSeats, setSelectedSeats] = useState([]);
 
-  // ✅ PRICE STATES
-  const [price, setPrice] = useState(0);          
-  const [customPrice, setCustomPrice] = useState(0); 
+  const [price, setPrice] = useState(0);
+  const [customPrice, setCustomPrice] = useState(0);
+
+  const [eventData, setEventData] = useState({}); // ✅ NEW
 
   /* ================= GET EVENT ================= */
 
   useEffect(() => {
 
     const getEvent = async () => {
-
       try {
+        const res = await axios.get(
+          `${import.meta.env.VITE_API_URL}/api/events/${id}`
+        );
 
-        const res = await axios.get(`http://localhost:5000/api/events/${id}`);
         const event = res.data?.data;
-        
-        // 🔥 BLOCK BOOKING IF INACTIVE
+
         if (event?.status === "inactive") {
           alert("❌ Booking is closed for this event");
           navigate("/");
@@ -39,13 +40,13 @@ const Mybooking = () => {
 
         if (event) {
           setPrice(event.userPrice);
-          setCustomPrice(event.userPrice); // ✅ still used internally
+          setCustomPrice(event.userPrice);
+          setEventData(event); // ✅ SAVE FULL EVENT
         }
 
       } catch (error) {
         console.log(error);
       }
-
     };
 
     getEvent();
@@ -55,7 +56,7 @@ const Mybooking = () => {
   /* ================= CALCULATIONS ================= */
 
   const tickets = selectedSeats.length;
-  const total = tickets * customPrice; // ✅ no change
+  const total = tickets * customPrice;
 
   /* ================= BOOKING ================= */
 
@@ -68,51 +69,51 @@ const Mybooking = () => {
         return;
       }
 
-      // ❌ REMOVED USER PRICE UPDATE API
-
-      // 🔥 CREATE BOOKING
-      const res = await axios.post("http://localhost:5000/api/booking", {
-        name,
-        email,
-        phone,
-        eventId: id,
-        seats: selectedSeats,
-        tickets,
-        totalPrice: total
-      });
+      const res = await axios.post(
+        `${import.meta.env.VITE_API_URL}/api/booking`,
+        {
+          name,
+          email,
+          phone,
+          eventId: id,
+          seats: selectedSeats,
+          tickets,
+          totalPrice: total
+        }
+      );
 
       if (res.data.success) {
 
         alert("🎉 Booking Successful");
 
-        const bookingData = res.data.booking;
+        // ✅ FIXED KEY
+        const bookingData = res.data.data;
 
         navigate("/payment", {
           state: {
-            name,
-            email,
-            phone,
-            seats: selectedSeats,
-            eventTitle: bookingData?.eventId?.title || "Event",
-            location: bookingData?.eventId?.location || "Location",
-            date: bookingData?.eventId?.date || "Date",
-            tickets,
-            total
+            booking: {
+              name,
+              email,
+              phone,
+              seats: selectedSeats,
+              tickets,
+              totalPrice: total,
+              eventId: bookingData?.eventId || eventData, // ✅ SAFE
+              eventTitle: bookingData?.eventId?.title || eventData?.title,
+              location: bookingData?.eventId?.location || eventData?.location,
+              date: bookingData?.eventId?.date || eventData?.date
+            }
           }
         });
 
       }
 
     } catch (error) {
-
       console.log(error);
       alert("Booking failed");
-
     }
 
   };
-
-  /* ================= UI ================= */
 
   return (
 
@@ -152,7 +153,6 @@ const Mybooking = () => {
           🎫 Tickets Selected: <b>{tickets}</b>
         </div>
 
-        {/* ✅ FIXED PRICE (NO EDIT) */}
         <div className="price-box">
           💰 Price Per Ticket: <b>₹{customPrice}</b>
         </div>
@@ -168,9 +168,7 @@ const Mybooking = () => {
       </div>
 
     </div>
-
   );
-
 };
 
 export default Mybooking;

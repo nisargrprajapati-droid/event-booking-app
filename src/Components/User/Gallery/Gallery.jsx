@@ -7,7 +7,7 @@ function Gallery() {
 
   const itemsPerPage = 2; // show 2 images per page
   useEffect(() => {
-    fetch("http://localhost:5000/api/gallery/all")
+    fetch("${import.meta.env.VITE_API_URL}/api/gallery/all")
       .then((res) => res.json())
       .then((data) => {
         setImages(data.images);  // IMPORTANT

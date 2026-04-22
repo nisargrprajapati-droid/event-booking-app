@@ -7,7 +7,7 @@ const UserList = () => {
   const [users, setUsers] = useState([]);
   const [search, setSearch] = useState("");
 
-  const API = "http://localhost:5000/api/user";
+  const API = "${import.meta.env.VITE_API_URL}/api/user";
 
   // ================= GET USERS =================
   const getUsers = async () => {

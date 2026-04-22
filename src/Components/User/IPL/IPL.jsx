@@ -13,7 +13,7 @@ function IPL() {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:5000/api/events/${id}`)
+      .get(`${import.meta.env.VITE_API_URL}/api/events/${id}`)
       .then((res) => setEvent(res.data.data || res.data))
       .catch((err) => console.log(err));
   }, [id]);

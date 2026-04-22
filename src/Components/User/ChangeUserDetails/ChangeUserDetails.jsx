@@ -37,7 +37,7 @@ const handleSubmit = async (e) => {
     const userId = user?._id;   // ✅ FIXED
 
     const res = await axios.put(
-      `http://localhost:5000/api/user/update/${userId}`,
+      `${import.meta.env.VITE_API_URL}/api/user/update/${userId}`,
       formData
     );
 

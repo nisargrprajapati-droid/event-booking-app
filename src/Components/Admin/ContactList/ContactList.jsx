@@ -6,39 +6,48 @@ const ContactList = () => {
 
   const [contacts, setContacts] = useState([]);
 
-  const getContacts = () => {
+  /* ================= GET CONTACTS ================= */
+  const getContacts = async () => {
+    try {
 
-    axios.get("http://localhost:5000/api/contact/list")
-      .then((res) => {
-        setContacts(res.data.contacts);
-      })
-      .catch((err) => {
-        console.log("Error fetching contacts:", err);
-      });
+      const res = await axios.get(
+        `${import.meta.env.VITE_API_URL}/api/contact/list`
+      );
 
+      console.log("CONTACT RESPONSE:", res.data);
+
+      // ✅ SAFE HANDLING (VERY IMPORTANT)
+      const data = res.data?.contacts || res.data?.data || res.data;
+
+      setContacts(Array.isArray(data) ? data : []);
+
+    } catch (err) {
+      console.log("Error fetching contacts:", err);
+      setContacts([]); // prevent crash
+    }
   };
 
   useEffect(() => {
     getContacts();
   }, []);
 
+  /* ================= DELETE ================= */
   const deleteContact = async (id) => {
 
     if (window.confirm("Delete this message?")) {
 
       try {
 
-        await axios.delete(`http://localhost:5000/api/contact/delete/${id}`);
+        await axios.delete(
+          `${import.meta.env.VITE_API_URL}/api/contact/delete/${id}`
+        );
 
         alert("Deleted successfully");
-
         getContacts();
 
       } catch (error) {
-
         console.log(error);
         alert("Error deleting contact");
-
       }
 
     }
@@ -68,38 +77,53 @@ const ContactList = () => {
 
           <tbody>
 
-            {contacts.map((contact, index) => (
+            {/* ✅ SAFE MAP */}
+            {Array.isArray(contacts) && contacts.length > 0 ? (
 
-              <tr key={contact._id}>
+              contacts.map((contact, index) => (
 
-                <td>{index + 1}</td>
-                <td>{contact.name}</td>
-                <td>{contact.email}</td>
+                <tr key={contact._id}>
 
-                <td>
-                  {contact.message.length > 40
-                    ? contact.message.substring(0, 40) + "..."
-                    : contact.message}
+                  <td>{index + 1}</td>
+                  <td>{contact.name}</td>
+                  <td>{contact.email}</td>
+
+                  <td>
+                    {contact.message?.length > 40
+                      ? contact.message.substring(0, 40) + "..."
+                      : contact.message}
+                  </td>
+
+                  <td>
+                    {contact.createdAt
+                      ? new Date(contact.createdAt).toLocaleDateString()
+                      : "N/A"}
+                  </td>
+
+                  <td>
+
+                    <button
+                      className="delete-btn"
+                      onClick={() => deleteContact(contact._id)}
+                    >
+                      Delete
+                    </button>
+
+                  </td>
+
+                </tr>
+
+              ))
+
+            ) : (
+
+              <tr>
+                <td colSpan="6" style={{ textAlign: "center" }}>
+                  No contacts found
                 </td>
-
-                <td>
-                  {new Date(contact.createdAt).toLocaleDateString()}
-                </td>
-
-                <td>
-
-                  <button
-                    className="delete-btn"
-                    onClick={() => deleteContact(contact._id)}
-                  >
-                    Delete
-                  </button>
-
-                </td>
-
               </tr>
 
-            ))}
+            )}
 
           </tbody>
 

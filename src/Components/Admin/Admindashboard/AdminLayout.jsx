@@ -16,7 +16,7 @@ const AdminLayout = () => {
   /* ================= GET NOTIFICATIONS ================= */
   const getNotifications = async () => {
     try {
-      const res = await axios.get("http://localhost:5000/api/notifications");
+      const res = await axios.get("${import.meta.env.VITE_API_URL}/api/notifications");
       setNotifications(res.data.data);
     } catch (error) {
       console.log(error);

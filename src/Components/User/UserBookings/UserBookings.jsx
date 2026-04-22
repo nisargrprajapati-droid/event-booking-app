@@ -10,7 +10,7 @@ const UserBookings = () => {
 
     try {
 
-      const res = await axios.get("http://localhost:5000/api/booking");
+      const res = await axios.get(`${import.meta.env.VITE_API_URL}/api/booking`);
 
       if (Array.isArray(res.data)) {
         setBookings(res.data);
@@ -37,7 +37,7 @@ const UserBookings = () => {
 
     try {
 
-      await axios.delete(`http://localhost:5000/api/booking/${id}`);
+      await axios.delete(`${import.meta.env.VITE_API_URL}/api/booking/${id}`);
 
       alert("Booking cancelled");
 
@@ -78,7 +78,7 @@ const UserBookings = () => {
 
               <td>
                 <img
-                  src={`http://localhost:5000/uploads/${b.eventId?.image}`}
+                  src={`${import.meta.env.VITE_API_URL}/uploads/${b.eventId?.image}`}
                   alt="event"
                   className="event-img"
                 />

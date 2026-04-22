@@ -11,7 +11,7 @@ const CategoryEvents = () => {
 
   useEffect(() => {
 
-    axios.get(`http://localhost:5000/api/events/category/${category}`)
+    axios.get(`${import.meta.env.VITE_API_URL}/api/events/category/${category}`)
       .then((res) => {
         const data = res.data?.data || res.data;
         setEvents(Array.isArray(data) ? data : []);

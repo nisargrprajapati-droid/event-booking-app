@@ -8,50 +8,19 @@ const BookingSuccess = () => {
   const navigate = useNavigate();
 
   const booking = location.state?.booking;
-  const event = booking?.eventId || {};
 
   if (!booking) {
     return (
       <div style={{ textAlign: "center", marginTop: "120px" }}>
         <h2>⚠ No Ticket Found</h2>
-
-        <button
-          onClick={() => navigate("/")}
-          className="ticket-btn"
-        >
+        <button onClick={() => navigate("/")} className="ticket-btn">
           🏠 Go Home
         </button>
       </div>
     );
   }
 
-  // Download Ticket
-  const downloadTicket = () => {
-
-    const ticketContent = `
-      Ticket Confirmation
-
-      Name: ${booking.name}
-      Email: ${booking.email}
-      Phone: ${booking.phone}
-
-      Event: ${event.title}
-      Location: ${event.location}
-      Date: ${event.date ? new Date(event.date).toLocaleDateString() : "N/A"}
-
-      Seats: ${booking.seats?.join(", ")}
-      Tickets: ${booking.tickets}
-
-      Total Paid: ₹${booking.totalPrice}
-    `;
-
-    const blob = new Blob([ticketContent], { type: "text/plain" });
-    const link = document.createElement("a");
-
-    link.href = URL.createObjectURL(blob);
-    link.download = "ticket.txt";
-    link.click();
-  };
+  const event = booking.eventId || {};
 
   return (
 
@@ -69,8 +38,8 @@ const BookingSuccess = () => {
 
           <hr />
 
-          <p><b>Event:</b> {event.title}</p>
-          <p><b>Location:</b> {event.location}</p>
+          <p><b>Event:</b> {event.title || "N/A"}</p>
+          <p><b>Location:</b> {event.location || "N/A"}</p>
 
           <p>
             <b>Date:</b>{" "}
@@ -84,7 +53,9 @@ const BookingSuccess = () => {
           <p><b>Seats:</b> {booking.seats?.join(", ")}</p>
           <p><b>Tickets:</b> {booking.tickets}</p>
 
-          <h3 className="price">Total Paid: ₹{booking.totalPrice}</h3>
+          <h3 className="price">
+            Total Paid: ₹{booking.totalPrice}
+          </h3>
 
         </div>
 
@@ -92,14 +63,9 @@ const BookingSuccess = () => {
           |||||||||||||||||||||||||||
         </div>
 
-        {/* Buttons */}
-
         <div className="ticket-actions">
 
-          <button
-            className="ticket-btn"
-            onClick={downloadTicket}
-          >
+          <button className="ticket-btn">
             ⬇ Download Ticket
           </button>
 
@@ -122,7 +88,6 @@ const BookingSuccess = () => {
       </div>
 
     </div>
-
   );
 };
 

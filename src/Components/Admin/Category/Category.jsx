@@ -14,7 +14,7 @@ const Category = () => {
   const getCategories = async () => {
     try {
 
-      const res = await axios.get("http://localhost:5000/api/category");
+      const res = await axios.get(`${import.meta.env.VITE_API_URL}/api/category`);
 
       if (Array.isArray(res.data)) {
         setCategories(res.data);
@@ -52,7 +52,7 @@ const Category = () => {
       formData.append("image", image);
 
       await axios.post(
-        "http://localhost:5000/api/category",
+        `${import.meta.env.VITE_API_URL}/api/category`,
         formData
       );
 
@@ -74,7 +74,7 @@ const Category = () => {
 
     try {
 
-      await axios.delete(`http://localhost:5000/api/category/${id}`);
+      await axios.delete(`${import.meta.env.VITE_API_URL}/api/category/${id}`);
 
       getCategories();
 
@@ -86,10 +86,7 @@ const Category = () => {
   return (
     <div className="category-container">
 
-      {/* ===== CATEGORY FORM ===== */}
-
       <form className="category-form" onSubmit={handleSubmit}>
-
         <h3>Add Category</h3>
 
         <input
@@ -105,10 +102,7 @@ const Category = () => {
         />
 
         <button type="submit">POST</button>
-
       </form>
-
-      {/* ===== CATEGORY TABLE ===== */}
 
       <table className="category-table">
 
@@ -126,28 +120,21 @@ const Category = () => {
           {categories.map((cat, index) => (
 
             <tr key={cat._id}>
-
               <td>{index + 1}</td>
 
               <td>
-                <img
-                  src={cat.image}
-                  width="50"
-                  alt="category"
-                />
+                <img src={cat.image} width="50" alt="category" />
               </td>
 
               <td>{cat.name}</td>
 
               <td>
-
                 <button
                   className="delete-btn"
                   onClick={() => handleDelete(cat._id)}
                 >
                   <FaTrash />
                 </button>
-
               </td>
 
             </tr>

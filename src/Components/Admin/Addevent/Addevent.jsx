@@ -24,7 +24,7 @@ const Addevent = () => {
   /* ================= GET EVENTS ================= */
   const getEvents = async () => {
     try {
-      const res = await axios.get("http://localhost:5000/api/events");
+      const res = await axios.get(`${import.meta.env.VITE_API_URL}/api/events`);
       setEvents(res.data?.data || []);
     } catch (error) {
       console.log(error);
@@ -34,10 +34,14 @@ const Addevent = () => {
   /* ================= GET CATEGORIES ================= */
   const getCategories = async () => {
     try {
-      const res = await axios.get("http://localhost:5000/api/category");
-      setCategories(res.data?.data || res.data || []);
+      const res = await axios.get(`${import.meta.env.VITE_API_URL}/api/category`);
+
+      const data = res.data?.data || res.data;
+      setCategories(Array.isArray(data) ? data : []);
+
     } catch (error) {
       console.log(error);
+      setCategories([]);
     }
   };
 
@@ -77,7 +81,7 @@ const Addevent = () => {
 
       if (image) data.append("image", image);
 
-      await axios.post("http://localhost:5000/api/events", data);
+      await axios.post(`${import.meta.env.VITE_API_URL}/api/events`, data);
 
       alert("Event Created ✅");
 
@@ -103,22 +107,23 @@ const Addevent = () => {
 
   /* ================= DELETE ================= */
   const handleDelete = async (id) => {
-    await axios.delete(`http://localhost:5000/api/events/${id}`);
+    await axios.delete(`${import.meta.env.VITE_API_URL}/api/events/${id}`);
     getEvents();
   };
 
   /* ================= STATUS ================= */
   const toggleStatus = async (id) => {
-    await axios.put(`http://localhost:5000/api/events/status/${id}`);
+    await axios.put(`${import.meta.env.VITE_API_URL}/api/events/status/${id}`);
     getEvents();
   };
 
   /* ================= ADMIN PRICE ================= */
   const updateAdminPrice = async (id, price) => {
     try {
-      await axios.put(`http://localhost:5000/api/events/admin-price/${id}`, {
-        price
-      });
+      await axios.put(
+        `${import.meta.env.VITE_API_URL}/api/events/admin-price/${id}`,
+        { price }
+      );
       getEvents();
     } catch (error) {
       console.log(error);
@@ -142,7 +147,7 @@ const Addevent = () => {
       }
 
       await axios.put(
-        `http://localhost:5000/api/events/${editEvent._id}`,
+        `${import.meta.env.VITE_API_URL}/api/events/${editEvent._id}`,
         data
       );
 
@@ -162,7 +167,6 @@ const Addevent = () => {
   return (
     <div className="addevent-page">
 
-      {/* ================= FORM ================= */}
       <div className="event-form">
         <h2>Post Event</h2>
 
@@ -208,7 +212,6 @@ const Addevent = () => {
         </form>
       </div>
 
-      {/* ================= EVENT LIST ================= */}
       <div className="event-list">
 
         <h2>All Events</h2>
@@ -282,10 +285,8 @@ const Addevent = () => {
 
       </div>
 
-      {/* ================= EDIT POPUP ================= */}
       {editEvent && (
         <div className="popup">
-
           <div className="popup-content">
 
             <h2>Edit Event</h2>
@@ -326,7 +327,6 @@ const Addevent = () => {
             <button onClick={() => setEditEvent(null)}>Cancel</button>
 
           </div>
-
         </div>
       )}
 

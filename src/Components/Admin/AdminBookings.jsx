@@ -10,7 +10,7 @@ const AdminBookings = () => {
 
     try {
 
-      const res = await axios.get("http://localhost:5000/api/booking");
+      const res = await axios.get("${import.meta.env.VITE_API_URL}/api/booking");
 
       // FIX: backend sends { success:true, bookings:[] }
       setBookings(res.data.bookings);
@@ -27,7 +27,7 @@ const AdminBookings = () => {
 
     try {
 
-      await axios.delete(`http://localhost:5000/api/booking/${id}`);
+      await axios.delete(`${import.meta.env.VITE_API_URL}/api/booking/${id}`);
 
       getBookings();
 

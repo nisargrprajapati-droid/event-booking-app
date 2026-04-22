@@ -12,22 +12,26 @@ const Event = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    axios.get("http://localhost:5000/api/category")
+    axios.get(`${import.meta.env.VITE_API_URL}/api/category`)
       .then((res) => {
+        console.log("CATEGORY:", res.data); // debug
         const data = res.data?.data || res.data;
         setCategories(Array.isArray(data) ? data : []);
-      });
+      })
+      .catch((err) => console.error(err));
   }, []);
 
   const handleCategoryClick = (cat) => {
 
     setSelectedCategory(cat);
 
-    axios.get(`http://localhost:5000/api/events/category/${cat.name}`)
+    axios.get(`${import.meta.env.VITE_API_URL}/api/events/category/${cat.name}`)
       .then((res) => {
+        console.log("EVENTS:", res.data); // debug
         const data = res.data?.data || res.data?.events || res.data;
         setEvents(Array.isArray(data) ? data : []);
-      });
+      })
+      .catch((err) => console.error(err));
 
   };
 
@@ -47,10 +51,9 @@ const Event = () => {
     }
   };
 
-  // ✅ NEW: USER PRICE UPDATE FUNCTION
   const handleUserPriceChange = async (id, price) => {
     try {
-      await axios.put(`http://localhost:5000/api/events/user-price/${id}`, {
+      await axios.put(`${import.meta.env.VITE_API_URL}/api/events/user-price/${id}`, {
         price
       });
     } catch (error) {
@@ -72,7 +75,7 @@ const Event = () => {
 
         <div className="event-grid">
 
-          {events.length > 0 ? (
+          {Array.isArray(events) && events.length > 0 ? (
 
             events.map((item) => (
 
@@ -87,12 +90,10 @@ const Event = () => {
                   <h3>{item.title}</h3>
                   <p>📍 {item.location}</p>
 
-                  {/* ✅ ADMIN PRICE (REFERENCE ONLY) */}
                   <p style={{ fontSize: "13px", color: "gray" }}>
                     Admin Price: ₹{item.adminPrice}
                   </p>
 
-                  {/* ✅ USER PRICE EDIT (NEW FEATURE) */}
                   <input
                     type="number"
                     defaultValue={item.userPrice}
@@ -108,14 +109,12 @@ const Event = () => {
                     }}
                   />
 
-                  {/* 🔥 STATUS BADGE */}
                   {item.status === "inactive" && (
                     <span className="closed-badge">
                       Booking Closed
                     </span>
                   )}
 
-                  {/* 🔥 BUTTON */}
                   <button
                     className="book-btn"
                     disabled={item.status === "inactive"}
@@ -160,7 +159,7 @@ const Event = () => {
 
       <div className="event-grid">
 
-        {categories.map((cat) => (
+        {Array.isArray(categories) && categories.map((cat) => (
 
           <div
             className="event-card"
