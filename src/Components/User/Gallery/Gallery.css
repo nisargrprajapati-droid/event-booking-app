@@ -1,45 +1,54 @@
 .main {
-  background: black;
+  background: #0f172a;
   color: white;
-  width: 800px;
-  min-height: 400px;
+  max-width: 1000px;   /* 🔥 increased width */
+  margin: 40px auto;
+  padding: 25px;       /* 🔥 more breathing space */
+  border-radius: 12px;
+}
+
+.main h2 {
   text-align: center;
-  margin-left: 355px;
-  margin-top: 35px;
-  padding-bottom: 170px;
+  margin-bottom: 25px;
+  font-size: 26px;
 }
 
-h2{
-  margin-bottom: 20px;
-}
-
-/* ✅ GRID for 2 images */
+/* 2 images per row */
 .gallery {
   display: grid;
-  grid-template-columns: repeat(2, 300px);
-  justify-content: center;
-  margin-top: 50px;
-  gap: 30px;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 25px;   /* 🔥 more space between cards */
 }
 
+/* card */
 .card {
-  background: #111;
-  padding: 10px;
+  background: #1e293b;
+  border-radius: 12px;
+  padding: 12px;
+  overflow: hidden;
+  transition: 0.3s;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+}
+
+/* image fix */
+.card img {
+  width: 100%;
+  height: 220px;   /* 🔥 slightly bigger image */
+  object-fit: cover;
   border-radius: 10px;
 }
 
-.card img {
-  width: 100%;
-  height: 200px;
-  object-fit: cover;      /* ✅ same size images */
-  border-radius: 8px;
-}
-
-.card h4{
+/* title */
+.card h4 {
   margin-top: 10px;
+  text-align: center;
+  font-size: 17px;
 }
 
-/* ✅ Pagination */
+/* pagination */
 .pagination {
   margin-top: 30px;
   display: flex;
@@ -48,10 +57,10 @@ h2{
 }
 
 .pagination button {
-  padding: 8px 20px;
-  background: #333;
-  color: white;
+  padding: 8px 18px;
   border: none;
+  background: #ff4b2b;
+  color: white;
   border-radius: 6px;
   cursor: pointer;
 }
@@ -59,8 +68,4 @@ h2{
 .pagination button:disabled {
   background: gray;
   cursor: not-allowed;
-}
-
-.page-number {
-  font-weight: 600;
 }

@@ -4,8 +4,9 @@ import "./ChangeUserDetails.css";
 import { useNavigate } from "react-router-dom";
 
 function ChangeUserDetails({ user, setUser }) {
+
   const navigate = useNavigate();
-  console.log("USER OBJECT:", user);
+
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -13,49 +14,82 @@ function ChangeUserDetails({ user, setUser }) {
     phone: "",
   });
 
-  // ✅ Load existing user data into form
-  useEffect(() => {
-    if (user) {
+  // ✅ FETCH CURRENT USER FROM BACKEND
+  const fetchUser = async () => {
+    try {
+      const token = localStorage.getItem("token");
+
+      if (!user?.id) return;
+
+      const res = await axios.get(
+        `${import.meta.env.VITE_API_URL}/api/user/getcurrentUser/${user.id}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      setUser(res.data.user);
+
       setFormData({
-        name: user.name || "",
-        email: user.email || "",
-        gender: user.gender || "",
-        phone: user.phone || "",
+        name: res.data.user.name || "",
+        email: res.data.user.email || "",
+        gender: res.data.user.gender || "",
+        phone: res.data.user.phone || "",
       });
+
+    } catch (error) {
+      console.log("FETCH USER ERROR:", error);
+    }
+  };
+
+  // ✅ LOAD USER DATA
+  useEffect(() => {
+    if (user?.id) {
+      fetchUser();
     }
   }, [user]);
-  
-const handleChange = (e) => {
-  const { name, value } = e.target;
-  setFormData({ ...formData, [name]: value });
-};
-const handleSubmit = async (e) => {
-  e.preventDefault();
 
-  try {
+  // ✅ INPUT CHANGE
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
+  };
 
-    const userId = user?._id;   // ✅ FIXED
+  // ✅ UPDATE USER
+  const handleSubmit = async (e) => {
+    e.preventDefault();
 
-    const res = await axios.put(
-      `${import.meta.env.VITE_API_URL}/api/user/update/${userId}`,
-      formData
-    );
+    try {
+      const token = localStorage.getItem("token");
 
-    alert("User updated successfully ✅");
+      const res = await axios.put(
+        `${import.meta.env.VITE_API_URL}/api/user/update/${user.id}`,
+        formData,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
 
-    setUser(res.data.user);
-    localStorage.setItem("user", JSON.stringify(res.data.user));
+      alert("User updated successfully ✅");
 
-    navigate("/account");
+      setUser(res.data.user);
+      localStorage.setItem("user", JSON.stringify(res.data.user));
 
-  } catch (error) {
-    console.log("ERROR BLOCK:", error);
-    alert("Update failed ❌");
-  }
-};
+      navigate("/account");
+
+    } catch (error) {
+      console.log("ERROR BLOCK:", error);
+      alert("Update failed ❌");
+    }
+  };
 
   return (
     <div className="change-container">
+
       <form className="change-form" onSubmit={handleSubmit}>
         <h2>Change User Details</h2>
 
@@ -110,7 +144,9 @@ const handleSubmit = async (e) => {
         <button type="submit" className="update-btn">
           Update Details
         </button>
+
       </form>
+
     </div>
   );
 }

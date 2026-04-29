@@ -6,37 +6,40 @@ const AdminBookings = () => {
 
   const [bookings, setBookings] = useState([]);
 
+  /* ================= GET BOOKINGS ================= */
   const getBookings = async () => {
-
     try {
 
-      const res = await axios.get("${import.meta.env.VITE_API_URL}/api/booking");
+      const res = await axios.get(
+        `${import.meta.env.VITE_API_URL}/api/booking`
+      );
 
-      // FIX: backend sends { success:true, bookings:[] }
-      setBookings(res.data.bookings);
+      console.log("BOOKINGS:", res.data);
+
+      // ✅ SAFE HANDLE
+      const data = res.data?.bookings || res.data?.data || res.data;
+
+      setBookings(Array.isArray(data) ? data : []);
 
     } catch (err) {
-
-      console.log(err);
-
+      console.log("BOOKING ERROR:", err);
+      setBookings([]);
     }
-
   };
 
+  /* ================= DELETE ================= */
   const deleteBooking = async (id) => {
-
     try {
 
-      await axios.delete(`${import.meta.env.VITE_API_URL}/api/booking/${id}`);
+      await axios.delete(
+        `${import.meta.env.VITE_API_URL}/api/booking/${id}`
+      );
 
       getBookings();
 
     } catch (err) {
-
       console.log(err);
-
     }
-
   };
 
   useEffect(() => {
@@ -52,7 +55,6 @@ const AdminBookings = () => {
       <table>
 
         <thead>
-
           <tr>
             <th>User</th>
             <th>Email</th>
@@ -62,7 +64,6 @@ const AdminBookings = () => {
             <th>Total</th>
             <th>Action</th>
           </tr>
-
         </thead>
 
         <tbody>
@@ -76,7 +77,10 @@ const AdminBookings = () => {
                 <td>{b.name}</td>
                 <td>{b.email}</td>
                 <td>{b.phone}</td>
-                <td>{b.eventId?.title}</td>
+
+                {/* ✅ FIX: populated event */}
+                <td>{b.eventId?.title || "N/A"}</td>
+
                 <td>{b.tickets}</td>
                 <td>₹{b.totalPrice}</td>
 

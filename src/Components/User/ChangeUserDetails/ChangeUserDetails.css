@@ -1,59 +1,63 @@
 .change-container {
-  height: 100vh;
+  min-height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #f4f6f9;
+  background: #0f172a;
 }
 
 .change-form {
-  background: white;
+  background: #1e293b;
   padding: 30px;
-  width: 350px;
-  border-radius: 10px;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  width: 400px;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.4);
 }
 
 .change-form h2 {
   text-align: center;
   margin-bottom: 20px;
+  color: #fff;
 }
 
 .input-group {
   margin-bottom: 15px;
-  display: flex;
-  flex-direction: column;
 }
 
 .input-group label {
+  display: block;
+  color: #cbd5f5;
   margin-bottom: 5px;
-  font-weight: 500;
 }
 
 .input-group input,
 .input-group select {
-  padding: 8px;
-  border-radius: 5px;
-  border: 1px solid #ccc;
+  width: 100%;
+  padding: 10px;
+  border-radius: 6px;
+  border: none;
   outline: none;
+  background: #334155;
+  color: #fff;
 }
 
 .input-group input:focus,
 .input-group select:focus {
-  border-color: #007bff;
+  border: 1px solid #6366f1;
 }
 
 .update-btn {
   width: 100%;
-  padding: 10px;
+  padding: 12px;
+  background: #6366f1;
   border: none;
-  background-color: #007bff;
+  border-radius: 6px;
   color: white;
-  border-radius: 5px;
-  cursor: pointer;
   font-weight: bold;
+  cursor: pointer;
+  transition: 0.3s;
 }
 
 .update-btn:hover {
-  background-color: #0056b3;
+  background: #4f46e5;
 }

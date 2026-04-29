@@ -44,7 +44,7 @@ function Login({ setUser }) {
 
         /* ===== SAVE TOKEN ===== */
 
-        Cookies.set("accessToken", res.data.token);
+       localStorage.setItem("token", res.data.token);
 
         /* ===== SAVE USER ===== */
 

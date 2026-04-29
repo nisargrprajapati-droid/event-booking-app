@@ -4,56 +4,98 @@ import "./AddGallery.css";
 
 const AddGallery = () => {
 
-const [galleryName, setGalleryName] = useState("");
-const [image, setImage] = useState(null);
+  const [galleryName, setGalleryName] = useState("");
+  const [image, setImage] = useState(null);
 
-const handleSubmit = async (e) => {
-e.preventDefault();
+  const handleSubmit = async (e) => {
+    e.preventDefault();
 
+    // ✅ VALIDATION
+    if (!galleryName || !image) {
+      alert("Please enter name and select image");
+      return;
+    }
 
-};
+    try {
 
-return ( <div className="page-wrapper">
+      const formData = new FormData();
 
+      formData.append("name", galleryName);
+      formData.append("image", image);
 
-  <div className="page-card">
+      const res = await axios.post(
+        `${import.meta.env.VITE_API_URL}/api/gallery/upload`,
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data"
+          }
+        }
+      );
 
-    <div className="icon-circle">🔒</div>
-    <h3>Add Gallery</h3>
+      if (res.data.success) {
+        alert("✅ Image uploaded successfully");
 
-    <form onSubmit={handleSubmit}>
+        // RESET FORM
+        setGalleryName("");
+        setImage(null);
+      }
 
-      <label className="upload-box">
-        <input
-          type="file"
-          hidden
-          onChange={(e) => setImage(e.target.files[0])}
-        />
+    } catch (error) {
+      console.log(error);
+      alert("❌ Upload failed");
+    }
 
-        <span>Choose file</span>
-        <span className="choose-pic">CHOOSE PIC</span>
-      </label>
+  };
 
-      <input
-        type="text"
-        placeholder="Gallery name*"
-        value={galleryName}
-        onChange={(e) => setGalleryName(e.target.value)}
-        className="gallery-input"
-      />
+  return (
 
-      <button type="submit" className="post-btn">
-        POST
-      </button>
+    <div className="page-wrapper">
 
-    </form>
+      <div className="page-card">
 
-  </div>
+        <div className="icon-circle">🖼</div>
+        <h3>Add Gallery</h3>
 
-</div>
+        <form onSubmit={handleSubmit}>
 
+          {/* IMAGE INPUT */}
+          <label className="upload-box">
+            <input
+              type="file"
+              accept="image/*"
+              hidden
+              onChange={(e) => setImage(e.target.files[0])}
+            />
 
-);
+            <span>Choose file</span>
+            <span className="choose-pic">
+              {image ? image.name : "CHOOSE PIC"}
+            </span>
+          </label>
+
+          {/* NAME INPUT */}
+          <input
+            type="text"
+            placeholder="Gallery name*"
+            value={galleryName}
+            onChange={(e) => setGalleryName(e.target.value)}
+            className="gallery-input"
+          />
+
+          {/* SUBMIT */}
+          <button type="submit" className="post-btn">
+            POST
+          </button>
+
+        </form>
+
+      </div>
+
+    </div>
+
+  );
+
 };
 
 export default AddGallery;
