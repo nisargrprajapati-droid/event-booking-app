@@ -15,9 +15,13 @@ function AdminLogin({ setAdmin }) {
 
     try {
 
-      const res = await axios.post(`${import.meta.env.VITE_API_URL}/api/admin/login`, data),
-        { email, password }
-      ;
+      const res = await axios.post(
+        `${import.meta.env.VITE_API_URL}/api/admin/login`,
+        {
+          email,
+          password,
+        }
+      );
 
       if (res.data.success) {
 
