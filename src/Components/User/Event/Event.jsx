@@ -168,9 +168,20 @@ const Event = () => {
           >
 
             {cat.image && (
-              <img src={cat.image} alt={cat.name} />
+              <img
+                src={cat.image}
+                alt={cat.name}
+                style={{
+                  width: "120px",
+                  height: "80px",
+                  objectFit: "cover",
+                  border: "2px solid red"
+                }}
+                onError={(e) => {
+                  console.log("IMAGE FAILED:", cat.image);
+                }}
+              />
             )}
-
             <div className="category-card-body">
               <h3>{cat.name}</h3>
             </div>

@@ -24,7 +24,7 @@ const AddGallery = () => {
       formData.append("image", image);
 
       const res = await axios.post(
-        `${import.meta.env.VITE_API_URL}/api/gallery/upload`,
+        `${import.meta.env.VITE_API_URL}/api/gallery/add`,
         formData,
         {
           headers: {
