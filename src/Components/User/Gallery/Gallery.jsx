@@ -11,7 +11,7 @@ function Gallery() {
   useEffect(() => {
     fetch(`${import.meta.env.VITE_API_URL}/api/gallery/all`)
       .then(res => res.json())
-      .then(data => setImages(data.images || []))
+      .then(data => setImages(data.data || []))
       .catch(err => console.log(err));
   }, []);
 
