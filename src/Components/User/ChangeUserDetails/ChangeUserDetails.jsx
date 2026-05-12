@@ -14,17 +14,39 @@ function ChangeUserDetails({ user, setUser }) {
     phone: "",
   });
 
+  /* ================= GET USER ID ================= */
+
+  const getUserId = () => {
+
+    const storedUser = JSON.parse(
+      localStorage.getItem("user")
+    );
+
+    return (
+      storedUser?._id ||
+      storedUser?.id ||
+      user?._id ||
+      user?.id
+    );
+  };
+
   /* ================= FETCH CURRENT USER ================= */
 
   const fetchUser = async () => {
+
     try {
 
       const token = localStorage.getItem("token");
 
-      if (!user?._id) return;
+      const userId = getUserId();
+
+      if (!userId) {
+        console.log("User ID not found");
+        return;
+      }
 
       const res = await axios.get(
-        `${import.meta.env.VITE_API_URL}/api/user/getcurrentUser/${user._id}`,
+        `${import.meta.env.VITE_API_URL}/api/user/getcurrentUser/${userId}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -56,14 +78,11 @@ function ChangeUserDetails({ user, setUser }) {
 
   useEffect(() => {
 
-    const storedUser = JSON.parse(localStorage.getItem("user"));
+    fetchUser();
 
-    if (storedUser?._id) {
-      fetchUser();
-    }
-  }, [user]);
+  }, []);
 
-  /* ================= HANDLE CHANGE ================= */
+  /* ================= HANDLE INPUT ================= */
 
   const handleChange = (e) => {
 
@@ -77,6 +96,7 @@ function ChangeUserDetails({ user, setUser }) {
   };
 
   /* ================= UPDATE USER ================= */
+
   const handleSubmit = async (e) => {
 
     e.preventDefault();
@@ -85,11 +105,7 @@ function ChangeUserDetails({ user, setUser }) {
 
       const token = localStorage.getItem("token");
 
-      const storedUser = JSON.parse(
-        localStorage.getItem("user")
-      );
-
-      const userId = storedUser?._id;
+      const userId = getUserId();
 
       if (!userId) {
         alert("User not found");
@@ -110,6 +126,8 @@ function ChangeUserDetails({ user, setUser }) {
           },
         }
       );
+
+      console.log("UPDATED USER:", res.data);
 
       alert("User updated successfully ✅");
 
