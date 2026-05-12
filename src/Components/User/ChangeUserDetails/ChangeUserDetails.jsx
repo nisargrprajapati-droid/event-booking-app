@@ -11,7 +11,7 @@ function ChangeUserDetails({ user, setUser }) {
     name: "",
     email: "",
     gender: "",
-    mobile_number: "",
+    phone: "",
   });
 
   /* ================= FETCH CURRENT USER ================= */
@@ -32,6 +32,8 @@ function ChangeUserDetails({ user, setUser }) {
         }
       );
 
+      console.log("CURRENT USER:", res.data);
+
       const currentUser = res.data.user;
 
       setUser(currentUser);
@@ -40,7 +42,7 @@ function ChangeUserDetails({ user, setUser }) {
         name: currentUser.name || "",
         email: currentUser.email || "",
         gender: currentUser.gender || "",
-        mobile_number: currentUser.mobile_number || "",
+        phone: currentUser.mobile_number || "",
       });
 
     } catch (error) {
@@ -60,7 +62,7 @@ function ChangeUserDetails({ user, setUser }) {
 
   }, [user]);
 
-  /* ================= HANDLE INPUT ================= */
+  /* ================= HANDLE CHANGE ================= */
 
   const handleChange = (e) => {
 
@@ -85,7 +87,12 @@ function ChangeUserDetails({ user, setUser }) {
 
       const res = await axios.put(
         `${import.meta.env.VITE_API_URL}/api/user/update/${user._id}`,
-        formData,
+        {
+          name: formData.name,
+          email: formData.email,
+          gender: formData.gender,
+          mobile_number: formData.phone,
+        },
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -94,6 +101,8 @@ function ChangeUserDetails({ user, setUser }) {
       );
 
       alert("User updated successfully ✅");
+
+      console.log("UPDATED USER:", res.data);
 
       setUser(res.data.user);
 
@@ -106,7 +115,7 @@ function ChangeUserDetails({ user, setUser }) {
 
     } catch (error) {
 
-      console.log("ERROR BLOCK:", error);
+      console.log("UPDATE ERROR:", error);
 
       alert("Update failed ❌");
 
@@ -114,13 +123,20 @@ function ChangeUserDetails({ user, setUser }) {
   };
 
   return (
+
     <div className="change-container">
 
-      <form className="change-form" onSubmit={handleSubmit}>
+      <form
+        className="change-form"
+        onSubmit={handleSubmit}
+      >
 
         <h2>Change User Details</h2>
 
+        {/* USER NAME */}
+
         <div className="input-group">
+
           <label>User Name</label>
 
           <input
@@ -128,11 +144,16 @@ function ChangeUserDetails({ user, setUser }) {
             name="name"
             value={formData.name}
             onChange={handleChange}
+            placeholder="Enter your name"
             required
           />
+
         </div>
 
+        {/* EMAIL */}
+
         <div className="input-group">
+
           <label>Email</label>
 
           <input
@@ -140,11 +161,16 @@ function ChangeUserDetails({ user, setUser }) {
             name="email"
             value={formData.email}
             onChange={handleChange}
+            placeholder="Enter your email"
             required
           />
+
         </div>
 
+        {/* GENDER */}
+
         <div className="input-group">
+
           <label>Gender</label>
 
           <select
@@ -153,32 +179,57 @@ function ChangeUserDetails({ user, setUser }) {
             onChange={handleChange}
             required
           >
-            <option value="">Select Gender</option>
-            <option value="Male">Male</option>
-            <option value="Female">Female</option>
-            <option value="Other">Other</option>
+
+            <option value="">
+              Select Gender
+            </option>
+
+            <option value="Male">
+              Male
+            </option>
+
+            <option value="Female">
+              Female
+            </option>
+
+            <option value="Other">
+              Other
+            </option>
+
           </select>
+
         </div>
 
+        {/* PHONE */}
+
         <div className="input-group">
+
           <label>Mobile No</label>
 
           <input
             type="tel"
-            name="mobile_number"
-            value={formData.mobile_number}
+            name="phone"
+            value={formData.phone}
             onChange={handleChange}
+            placeholder="Enter mobile number"
             required
           />
+
         </div>
 
-        <button type="submit" className="update-btn">
+        {/* BUTTON */}
+
+        <button
+          type="submit"
+          className="update-btn"
+        >
           Update Details
         </button>
 
       </form>
 
     </div>
+
   );
 }
 
