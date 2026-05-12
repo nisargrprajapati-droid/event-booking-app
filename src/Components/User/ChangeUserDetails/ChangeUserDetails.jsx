@@ -11,18 +11,20 @@ function ChangeUserDetails({ user, setUser }) {
     name: "",
     email: "",
     gender: "",
-    phone: "",
+    mobile_number: "",
   });
 
-  // ✅ FETCH CURRENT USER FROM BACKEND
+  /* ================= FETCH CURRENT USER ================= */
+
   const fetchUser = async () => {
     try {
+
       const token = localStorage.getItem("token");
 
-      if (!user?.id) return;
+      if (!user?._id) return;
 
       const res = await axios.get(
-        `${import.meta.env.VITE_API_URL}/api/user/getcurrentUser/${user.id}`,
+        `${import.meta.env.VITE_API_URL}/api/user/getcurrentUser/${user._id}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -30,42 +32,59 @@ function ChangeUserDetails({ user, setUser }) {
         }
       );
 
-      setUser(res.data.user);
+      const currentUser = res.data.user;
+
+      setUser(currentUser);
 
       setFormData({
-        name: res.data.user.name || "",
-        email: res.data.user.email || "",
-        gender: res.data.user.gender || "",
-        phone: res.data.user.phone || "",
+        name: currentUser.name || "",
+        email: currentUser.email || "",
+        gender: currentUser.gender || "",
+        mobile_number: currentUser.mobile_number || "",
       });
 
     } catch (error) {
+
       console.log("FETCH USER ERROR:", error);
+
     }
   };
 
-  // ✅ LOAD USER DATA
+  /* ================= LOAD USER ================= */
+
   useEffect(() => {
-    if (user?.id) {
+
+    if (user?._id) {
       fetchUser();
     }
+
   }, [user]);
 
-  // ✅ INPUT CHANGE
+  /* ================= HANDLE INPUT ================= */
+
   const handleChange = (e) => {
+
     const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
+
+    setFormData({
+      ...formData,
+      [name]: value,
+    });
+
   };
 
-  // ✅ UPDATE USER
+  /* ================= UPDATE USER ================= */
+
   const handleSubmit = async (e) => {
+
     e.preventDefault();
 
     try {
+
       const token = localStorage.getItem("token");
 
       const res = await axios.put(
-        `${import.meta.env.VITE_API_URL}/api/user/update/${user.id}`,
+        `${import.meta.env.VITE_API_URL}/api/user/update/${user._id}`,
         formData,
         {
           headers: {
@@ -77,13 +96,20 @@ function ChangeUserDetails({ user, setUser }) {
       alert("User updated successfully ✅");
 
       setUser(res.data.user);
-      localStorage.setItem("user", JSON.stringify(res.data.user));
+
+      localStorage.setItem(
+        "user",
+        JSON.stringify(res.data.user)
+      );
 
       navigate("/account");
 
     } catch (error) {
+
       console.log("ERROR BLOCK:", error);
+
       alert("Update failed ❌");
+
     }
   };
 
@@ -91,10 +117,12 @@ function ChangeUserDetails({ user, setUser }) {
     <div className="change-container">
 
       <form className="change-form" onSubmit={handleSubmit}>
+
         <h2>Change User Details</h2>
 
         <div className="input-group">
           <label>User Name</label>
+
           <input
             type="text"
             name="name"
@@ -106,6 +134,7 @@ function ChangeUserDetails({ user, setUser }) {
 
         <div className="input-group">
           <label>Email</label>
+
           <input
             type="email"
             name="email"
@@ -117,6 +146,7 @@ function ChangeUserDetails({ user, setUser }) {
 
         <div className="input-group">
           <label>Gender</label>
+
           <select
             name="gender"
             value={formData.gender}
@@ -132,10 +162,11 @@ function ChangeUserDetails({ user, setUser }) {
 
         <div className="input-group">
           <label>Mobile No</label>
+
           <input
             type="tel"
-            name="phone"
-            value={formData.phone}
+            name="mobile_number"
+            value={formData.mobile_number}
             onChange={handleChange}
             required
           />
