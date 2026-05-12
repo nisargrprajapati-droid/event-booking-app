@@ -27,15 +27,17 @@
 /* CARD */
 .event-card{
   background:#fff;
-  border-radius:16px;
+  border-radius:18px;
   overflow:hidden;
-  box-shadow:0 6px 20px rgba(0,0,0,0.08);
+  box-shadow:0 4px 15px rgba(0,0,0,0.08);
   transition:0.3s;
   cursor:pointer;
   width:100%;
-  padding:0;
+  display:flex;
+  flex-direction:column;
+  justify-content:space-between;
+  min-height:520px;
 }
-
 /* HOVER */
 .event-card:hover{
   transform:translateY(-6px);
@@ -54,6 +56,9 @@
 .event-card-body{
   padding:18px;
   text-align:center;
+  display:flex;
+  flex-direction:column;
+  flex:1;
 }
 
 /* CATEGORY BODY */
@@ -107,19 +112,18 @@
 
 /* BUTTON */
 .book-btn{
-  margin-top:10px;
+  margin-top:auto;
   width:100%;
   padding:12px;
   border:none;
-  border-radius:8px;
+  border-radius:10px;
   background:linear-gradient(135deg,#ff416c,#ff4b2b);
   color:#fff;
   font-weight:600;
-  font-size:14px;
+  font-size:15px;
   cursor:pointer;
   transition:0.3s;
 }
-
 .book-btn:hover{
   opacity:0.95;
   transform:scale(1.02);
