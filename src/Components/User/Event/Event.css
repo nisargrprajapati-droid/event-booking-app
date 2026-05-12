@@ -112,21 +112,34 @@
 
 /* BUTTON */
 .book-btn{
-  margin-top:auto;
   width:100%;
-  padding:1px;
+  padding:14px 18px;
+  margin-top:20px;
   border:none;
-  border-radius:10px;
-  background:linear-gradient(135deg,#ff416c,#ff4b2b);
-  color:#fff;
-  font-weight:600;
-  font-size:15px;
+  border-radius:12px;
+  background:linear-gradient(135deg,#ff512f,#dd2476);
+  color:white;
+  font-size:16px;
+  font-weight:700;
+  letter-spacing:0.5px;
   cursor:pointer;
-  transition:0.3s;
+  transition:all 0.3s ease;
+  box-shadow:0 6px 18px rgba(221,36,118,0.35);
 }
+
 .book-btn:hover{
-  opacity:0.95;
-  transform:scale(1.02);
+  transform:translateY(-3px);
+  box-shadow:0 10px 25px rgba(221,36,118,0.45);
+}
+
+.book-btn:active{
+  transform:scale(0.98);
+}
+
+.book-btn:disabled{
+  background:#999;
+  cursor:not-allowed;
+  box-shadow:none;
 }
 
 /* CLOSED BADGE */
