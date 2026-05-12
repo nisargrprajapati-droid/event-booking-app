@@ -1,106 +1,189 @@
-.ipl-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: #f2f2f2;
-  padding: 30px 0;
-  min-height: 90vh;
-  display: flex;
-  flex-direction: column;
+/* MAIN PAGE */
+.ipl-container{
+  min-height:100vh;
+  background:#f5f7fa;
+  padding-bottom:50px;
 }
 
-/* Make image responsive and centered */
+/* HERO IMAGE SECTION */
+.iplimg{
+  width:100%;
+  height:420px;
+  overflow:hidden;
+  position:relative;
+}
+
+.iplimg::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:linear-gradient(
+    to top,
+    rgba(0,0,0,0.7),
+    rgba(0,0,0,0.2)
+  );
+}
+
+/* IMAGE */
 .iplimg img{
-  margin-top: 15px;
-  width: 1500px;
-  height: auto;
- 
-  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-  transition: transform 0.3s ease;
-  display: flex;
-  flex-direction: column;
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  display:block;
 }
 
-.ipl-image:hover {
-  transform: scale(1.02);
+/* CONTENT CARD */
+.tkt-container{
+  width:85%;
+  max-width:1200px;
+  margin:-90px auto 0;
+  background:#fff;
+  border-radius:20px;
+  padding:35px;
+  position:relative;
+  z-index:10;
+  box-shadow:0 8px 30px rgba(0,0,0,0.12);
 }
 
-body {
-  font-family: Arial, sans-serif;
-  background: #f5f5f5;
-  display: flex;
-  justify-content: center;
-  padding: 10px;
+/* TITLE */
+.tkt-title{
+  font-size:42px;
+  font-weight:700;
+  margin-bottom:10px;
+  color:#111;
 }
 
-.tkt-container {
-  padding: 30px;
-  border-radius: 10px;
-  width: 1000px;
+/* PRICE */
+.tkt-price{
+  font-size:30px;
+  font-weight:700;
+  color:#e63946;
+  margin-bottom:8px;
 }
 
-.tkt-title {
-  text-align: start;
-  font-size: 28px;
-  margin-bottom: 10px;
+/* CATEGORY */
+.tkt-subtitle{
+  font-size:16px;
+  color:#777;
+  text-transform:capitalize;
+  margin-bottom:25px;
 }
 
-.tkt-price {
-  text-align: start;
-  font-size: 20px;
-  font-weight: bold;
+/* BUTTON */
+.tkt-btn{
+  padding:14px 28px;
+  background:linear-gradient(135deg,#ff416c,#ff4b2b);
+  color:#fff;
+  border:none;
+  border-radius:10px;
+  cursor:pointer;
+  font-size:16px;
+  font-weight:600;
+  transition:0.3s;
+  margin-bottom:35px;
 }
 
-.tkt-subtitle {
-  text-align: start;
-  color: #555;
+.tkt-btn:hover{
+  transform:translateY(-2px);
+  opacity:0.95;
 }
 
-.tkt-btn {
-  display: block;
-margin-left: 800px;
-  
-  padding: 8px 16px;
-  background: #007bff;
-  color: #fff;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  
+/* SECTION TITLE */
+.tkt-heading{
+  font-size:28px;
+  margin-bottom:20px;
+  color:#111;
 }
 
-.tkt-btn:hover {
-  background: #0056b3;
+/* INFO SECTION */
+.tkt-section{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:25px;
+  margin-bottom:30px;
 }
 
-.tkt-heading {
-  margin: 20px 0 10px;
-}
-
-.tkt-section {
-  display: flex;
-  justify-content: space-between;
-  gap: 10px;
-  flex-wrap: wrap;
-}
-
-.tkt-box1 {
-  background: #f0f0f0;
-  padding: 10px;
-  border-radius: 5px;
-  flex: 1;
-  min-width: 250px;
-}
-
+/* BOX */
+.tkt-box1,
 .tkt-box2{
-  background: #f0f0f0;
-  padding: 10px;
-  border-radius: 5px;
-  flex: 1;
-  min-width: 250px;
-  margin-left: 400px;
+  background:#f8f9fc;
+  padding:25px;
+  border-radius:14px;
+  border:1px solid #e5e7eb;
+  margin-left:0;
 }
 
-.tkt-location {
-  margin-top: 15px;
+/* BOX HEADING */
+.tkt-box1 h3,
+.tkt-box2 h3{
+  font-size:22px;
+  margin-bottom:12px;
+  color:#111;
+}
+
+/* BOX TEXT */
+.tkt-box1 p,
+.tkt-box2 p{
+  color:#555;
+  font-size:16px;
+  margin:6px 0;
+}
+
+/* DESCRIPTION */
+.tkt-container p:last-child{
+  color:#555;
+  line-height:1.7;
+  font-size:16px;
+}
+
+/* RESPONSIVE */
+@media(max-width:900px){
+
+  .iplimg{
+    height:300px;
+  }
+
+  .tkt-container{
+    width:92%;
+    padding:25px;
+    margin-top:-60px;
+  }
+
+  .tkt-title{
+    font-size:30px;
+  }
+
+  .tkt-price{
+    font-size:24px;
+  }
+
+  .tkt-section{
+    grid-template-columns:1fr;
+  }
+}
+
+/* MOBILE */
+@media(max-width:600px){
+
+  .iplimg{
+    height:240px;
+  }
+
+  .tkt-container{
+    width:95%;
+    padding:20px;
+    border-radius:14px;
+  }
+
+  .tkt-title{
+    font-size:26px;
+  }
+
+  .tkt-btn{
+    width:100%;
+  }
+
+  .tkt-heading{
+    font-size:22px;
+  }
 }
