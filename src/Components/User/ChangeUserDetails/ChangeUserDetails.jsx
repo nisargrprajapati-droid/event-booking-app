@@ -56,10 +56,11 @@ function ChangeUserDetails({ user, setUser }) {
 
   useEffect(() => {
 
-    if (user?._id) {
+    const storedUser = JSON.parse(localStorage.getItem("user"));
+
+    if (storedUser?._id) {
       fetchUser();
     }
-
   }, [user]);
 
   /* ================= HANDLE CHANGE ================= */
@@ -76,7 +77,6 @@ function ChangeUserDetails({ user, setUser }) {
   };
 
   /* ================= UPDATE USER ================= */
-
   const handleSubmit = async (e) => {
 
     e.preventDefault();
@@ -85,8 +85,19 @@ function ChangeUserDetails({ user, setUser }) {
 
       const token = localStorage.getItem("token");
 
+      const storedUser = JSON.parse(
+        localStorage.getItem("user")
+      );
+
+      const userId = storedUser?._id;
+
+      if (!userId) {
+        alert("User not found");
+        return;
+      }
+
       const res = await axios.put(
-        `${import.meta.env.VITE_API_URL}/api/user/update/${user._id}`,
+        `${import.meta.env.VITE_API_URL}/api/user/update/${userId}`,
         {
           name: formData.name,
           email: formData.email,
@@ -101,8 +112,6 @@ function ChangeUserDetails({ user, setUser }) {
       );
 
       alert("User updated successfully ✅");
-
-      console.log("UPDATED USER:", res.data);
 
       setUser(res.data.user);
 
